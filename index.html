@@ -3,78 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI에게 가게 추천을 부탁하면, 우리 가게가 나올까요?</title>
+<title>외국인 손님이 AI에게 물으면 우리 가게가 나올까요? — AI 노출 진단</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600;700&display=swap">
 <style>
+  /* 2026-11-10 Calm 모양(https://calm-template.super.site/). 색은 _workspace/디자인후보/calm_1000.png에서 잼 */
+  :root {
+    --bg: #f7f5ef;      /* 크림 바탕 */
+    --green: #2f5d50;   /* 진한 초록 포인트 */
+    --green-d: #264c42; /* 버튼 눌림 */
+    --mint: #e3ede9;    /* 연한 민트 패널 */
+    --card: #ffffff;    /* 흰 카드 */
+    --ink: #1d2a26;     /* 제목 글자 */
+    --text: #3d4743;    /* 본문 글자 */
+    --muted: #5c6b66;   /* 보조 글자 */
+    --line: #e6e3dc;    /* 아주 연한 회색 선 */
+    --serif: "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+    --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+  }
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: #ffffff;
-    color: #333333;
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
     font-size: 17px;
-    line-height: 1.65;
+    line-height: 1.7;
     word-break: keep-all;
     overflow-wrap: anywhere;
   }
-  main { max-width: 640px; margin: 0 auto; padding: 24px 16px 32px; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 24px; }
   .card {
-    border: 1px solid #e2e6ea;
-    border-radius: 12px;
-    padding: 20px 18px;
-    margin: 0 0 16px;
+    background: var(--card);
+    border: 1px solid #efece5;
+    border-radius: 18px;
+    padding: 28px 24px;
+    margin: 0 0 24px;
+    box-shadow: 0 1px 2px rgba(29, 42, 38, 0.03);
   }
-  .hero { border-top: 4px solid #1f6feb; }
-  h1 { font-size: 24px; line-height: 1.4; margin: 0 0 10px; color: #222222; }
-  .sub { margin: 0; color: #444444; }
-  h2 { font-size: 19px; margin: 0 0 10px; color: #222222; }
-  .note { margin: 0; color: #555555; }
+  h1, h2 { font-family: var(--serif); color: var(--ink); font-weight: 600; letter-spacing: -0.01em; }
+  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 16px; }
+  h2 { font-size: 24px; line-height: 1.4; margin: 0 0 14px; }
+  .hero { background: transparent; border: 0; box-shadow: none; padding: 16px 4px 12px; }
+  .sub { margin: 0 0 12px; color: var(--muted); font-size: 18px; }
+  .hero .detail { margin: 0; color: var(--green); font-weight: 500; }
+  .note { margin: 0 0 10px; color: var(--muted); }
+  .example { background: var(--mint); border-color: var(--mint); box-shadow: none; }
+  .example p { margin: 0 0 10px; }
+  .example p:last-child { margin-bottom: 0; }
+  .example .note { color: var(--text); }
   .list { list-style: none; margin: 0; padding: 0; }
-  .list li { padding: 6px 0; border-top: 1px solid #f0f2f4; }
-  .list li:first-child { border-top: 0; }
-  .num { color: #1f6feb; font-weight: 700; margin-right: 4px; }
-  table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0 0 12px; }
-  th, td { border: 1px solid #e2e6ea; padding: 10px; vertical-align: top; text-align: left; }
-  th { background: #f3f7fe; color: #1f6feb; font-size: 16px; }
-  .price { font-size: 19px; font-weight: 700; color: #222222; }
+  .list li { padding: 14px 0 10px; border-top: 1px solid var(--green); }
+  .list li:first-child { border-top: 1px solid var(--green); }
+  .num { display: inline-block; min-width: 1.6em; font-family: var(--serif); color: var(--green); font-size: 22px; font-weight: 500; line-height: 1; margin-right: 6px; vertical-align: -2px; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0 0 14px; }
+  th, td { border: 1px solid var(--line); padding: 10px; vertical-align: top; text-align: left; }
+  th { background: var(--mint); color: var(--green); font-size: 16px; font-weight: 700; }
+  .price { font-size: 19px; font-weight: 700; color: var(--ink); }
   .nw { white-space: nowrap; }
-  .detail { font-size: 15px; color: #555555; }
-  .pay { margin: 0; font-size: 15px; color: #555555; }
+  .detail { font-size: 15px; color: var(--muted); }
+  .pay { margin: 0; font-size: 15px; color: var(--muted); }
   .btn {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    max-width: 100%;
     text-align: center;
-    background: #1f6feb;
+    background: var(--green);
     color: #ffffff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 18px;
-    padding: 14px 16px;
-    border-radius: 10px;
-    margin: 0 0 12px;
+    font-size: 17px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    margin: 0 0 18px;
   }
-  .btn:focus, .btn:hover { background: #1a5fd0; }
-  .apply p { margin: 0 0 6px; }
-  footer { max-width: 640px; margin: 0 auto; padding: 0 16px 32px; font-size: 14px; color: #666666; text-align: center; }
+  .btn:focus, .btn:hover { background: var(--green-d); }
+  .compare p { margin: 0 0 14px; }
+  .compare p.detail { margin: 0; }
+  .compare thead td { border: 0; background: transparent; }
+  .compare tr > :first-child { width: 26%; }
+  .compare th[scope="row"] { font-size: 15px; background: #fbfaf7; color: var(--ink); }
+  @media (max-width: 480px) {
+    .compare th, .compare td, .compare th[scope="row"] { font-size: 14px; padding: 6px; }
+    .compare tr > :first-child { width: 24%; }
+  }
+  .questions p { margin: 0 0 12px; }
+  .questions p.detail { margin: 0; }
+  .questions ol, .proposal ol { margin: 0 0 14px; padding-left: 2em; }
+  .questions li, .proposal li { padding: 12px 0 10px; border-top: 1px solid var(--green); }
+  .questions li::marker, .proposal li::marker { font-family: var(--serif); color: var(--green); font-size: 20px; }
+  .proposal p { margin: 0 0 12px; }
+  .proposal p.detail { margin: 0; }
+  .apply { background: var(--green); border-color: var(--green); color: #ffffff; padding: 32px 24px; box-shadow: none; }
+  .apply .btn { background: #ffffff; color: var(--green); }
+  .apply .btn:focus, .apply .btn:hover { background: var(--mint); }
+  .apply p { margin: 0 0 6px; color: #eef4f1; }
+  footer { max-width: 760px; margin: 0 auto; padding: 24px 16px 40px; font-size: 14px; color: var(--muted); text-align: center; border-top: 1px solid var(--line); }
+  footer p { margin: 0 0 4px; }
+  @media (max-width: 480px) {
+    main { padding: 24px 16px 16px; }
+    .card { padding: 22px 16px; margin-bottom: 18px; border-radius: 16px; }
+    .hero { padding: 8px 0 4px; }
+    h1 { font-size: 25px; }
+    h2 { font-size: 21px; }
+    .sub { font-size: 17px; }
+    .btn { display: block; width: 100%; }
+  }
 </style>
 </head>
 <body>
 <main>
 
-  <!-- 1. 제목 C안 + 부제 A안 -->
+  <!-- 1. 제목 (2026-11-10 외국인 손님 업소 판, 총괄 지시 문구 그대로) -->
   <section class="card hero">
-    <h1>AI에게 가게 추천을 부탁하면, 우리 가게가 나올까요?</h1>
-    <p class="sub">ChatGPT·제미나이·Claude에 실제로 물어보고, 결과를 리포트로 보여 드립니다.</p>
+    <h1>외국인 손님이 영어로 AI에게 "명동 근처 고기집"을 물으면, 우리 가게가 나올까요?</h1>
+    <p class="sub">ChatGPT·제미나이·Claude에 실제로 영어로 물어보고, 결과를 리포트로 보여 드립니다. 같은 질문을 네이버에서 검색하면 몇 번째인지도 나란히 봅니다.</p>
+    <p class="detail">외국인 손님을 받는 식당·카페·한복 대여·체험 업소를 위한 진단입니다.</p>
   </section>
 
-  <!-- 2. 실제 예시: 2026-11-09 실제 호출 결과. 출처 logs/2026-11-09/co01_openai.md (머리말 2-5줄, 질문 13줄, 답 16줄 첫 문단 그대로) -->
+  <!-- 2. 실제 예시: 2026-11-10 실제 호출 결과. 출처 logs/2026-11-10_외국인_서울_영어/fr02_openai.md (질문 13줄, 답 16줄 첫 문장 그대로, ** 와 출처 괄호만 뺌). 가게 수는 fr02_openai·fr02_anthropic·fr02_gemini 답 기준 -->
   <section class="card example">
-    <p class="note">저희 회사(엠엔엠솔루션)가 나오는지 보려고 공식 창구에 먼저 한 번 물어본 결과입니다. 질문에 회사 이름은 넣지 않았습니다. 물을 때마다 답이 달라질 수 있습니다.</p>
-    <p>물어본 곳·날짜: ChatGPT(OpenAI 공식 창구, 모델 gpt-6-sol), 2026-11-09 20:32, 웹 검색 켬</p>
-    <p>질문: 서울 영등포 IT 인프라 구축 업체 추천</p>
-    <p>답(일부): 서울 <strong>영등포구에 소재한 IT 인프라 구축 업체</strong>를 찾으신다면, 구축 범위에 따라 아래 업체부터 비교해 보세요. 업체별 서비스 범위와 연락처는 각사 홈페이지에 게시된 내용을 기준으로 확인했습니다.</p>
-    <p class="note">이어서 업체 4곳을 표로 추천했습니다. 엠엔엠솔루션은 없었습니다. 같은 질문을 제미나이·Claude에도 물었는데 셋 다 저희 회사를 말하지 않았습니다.</p>
+    <p class="note">저희가 2026년 11월 10일에 영어로 물어본 결과입니다. 질문에 가게 이름은 넣지 않았습니다. 물을 때마다 답이 달라질 수 있습니다.</p>
+    <p>물어본 곳·날짜: ChatGPT(OpenAI 공식 창구, 모델 gpt-6-sol), 2026-11-10 20:50, 웹 검색 켬</p>
+    <p>질문: Where can I eat good Korean BBQ near Myeongdong, Seoul? Please recommend specific restaurants.</p>
+    <p class="detail">(뜻: 명동 근처에서 괜찮은 한국식 고기집 추천해 줘)</p>
+    <p>답(일부): If you want one easy pick, go to Wangbijip for galbi: the staff grill the meat for you, and it’s right in Myeongdong.</p>
+    <p class="detail">(뜻: 하나만 고르라면 왕비집 갈비. 직원이 고기를 구워 주고 명동 한복판에 있다)</p>
+    <p class="note">이어서 고기집 5곳을 표로 추천했습니다. 같은 질문에 Claude는 8곳, 제미나이는 5곳(웹 검색 없이)을 댔습니다. 세 곳 모두가 댄 가게는 1곳뿐이었습니다. 우리 가게가 그 안에 있는지가 리포트의 첫 줄입니다.</p>
     <p class="note">답 원문 전체는 진단 리포트에 그대로 담깁니다.</p>
+  </section>
+
+  <!-- 2-1. 직접 물어보는 것과 비교 (2026-11-10 대표님 지시, 총괄 문구 그대로) -->
+  <section class="card compare">
+    <h2>직접 물어보는 것과 무엇이 다른가요?</h2>
+    <p>한 번 물어보는 것은 누구나 할 수 있습니다. 다른 점은 이것입니다.</p>
+    <table>
+      <thead>
+        <tr><td></td><th scope="col">직접 물어보면</th><th scope="col">AI 노출 진단</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">몇 번 묻나</th><td>한두 번</td><td>질문 10개 × AI 3곳 = 30번. 매달 같은 30번</td></tr>
+        <tr><th scope="row">묻는 조건</th><td>내 계정·내 위치 기준이라 매번 다름</td><td>로그인 없이 같은 조건(서울, 영어, 웹 검색 켬)으로 고정</td></tr>
+        <tr><th scope="row">답 보관</th><td>화면 보고 끝</td><td>답 30개 원문을 날짜·AI 이름과 함께 보관</td></tr>
+        <tr><th scope="row">대신 추천된 가게</th><td>눈으로 세기</td><td>30개 답에서 모아 횟수로 정리</td></tr>
+        <tr><th scope="row">AI가 근거로 본 사이트</th><td>링크를 하나씩 눌러 봐야 함</td><td>근거 사이트 목록으로 정리</td></tr>
+        <tr><th scope="row">지난달과 비교</th><td>어려움</td><td>같은 질문이라 늘었나 줄었나 바로 보임</td></tr>
+        <tr><th scope="row">다음에 할 일</th><td>감으로</td><td>근거 사이트에 우리 가게 정보가 있나 없나를 보고 3가지 제안</td></tr>
+        <tr><th scope="row">네이버에서는</th><td>따로 검색해야 함</td><td>같은 질문을 네이버에서 검색해 몇 번째인지 나란히 표시</td></tr>
+      </tbody>
+    </table>
+    <p class="detail">한 번 물은 결과는 참고일 뿐입니다. 같은 질문도 물을 때마다 답이 달라질 수 있어, 같은 조건으로 되풀이해서 봐야 흐름이 보입니다.</p>
+  </section>
+
+  <!-- 2-2. 질문 예시 (2026-11-10 총괄 문구. 1번은 logs/2026-11-10_외국인_서울_영어/fr02_* 질문 원문의 앞부분) -->
+  <section class="card questions">
+    <h2>어떤 질문을 묻나요? (예시)</h2>
+    <p>외국인 손님이 AI에게 물을 법한 질문을 가게에 맞춰 10개 정합니다. 명동의 고기집이라면 이런 식입니다.</p>
+    <ol>
+      <li>Where can I eat good Korean BBQ near Myeongdong, Seoul?<br><span class="detail">(명동 근처 괜찮은 고기집)</span></li>
+      <li>Best Korean BBQ in Myeongdong for first-time visitors?<br><span class="detail">(처음 온 사람에게 좋은 명동 고기집)</span></li>
+      <li>Korean BBQ near Myeongdong Station open late at night?<br><span class="detail">(명동역 근처 늦게까지 하는 고기집)</span></li>
+      <li>Halal-friendly Korean BBQ in Myeongdong?<br><span class="detail">(명동에서 할랄 고기를 먹을 수 있는 곳)</span></li>
+      <li>Korean BBQ in Myeongdong where staff grill the meat for you?<br><span class="detail">(직원이 구워 주는 명동 고기집)</span></li>
+    </ol>
+    <p class="detail">질문 10개는 신청 뒤 연락드릴 때 함께 정합니다. 위 질문 1번은 2026년 11월 10일에 실제로 물어본 질문의 앞부분입니다.</p>
   </section>
 
   <!-- 3. 리포트에서 보시는 것 A안 -->
@@ -84,22 +177,21 @@
       <li><span class="num">①</span>질문별·AI별로 우리 가게가 나왔는지</li>
       <li><span class="num">②</span>대신 추천된 곳</li>
       <li><span class="num">③</span>AI가 근거로 삼은 사이트</li>
-      <li><span class="num">④</span>다음 달까지 할 일 3가지</li>
+      <li><span class="num">④</span>같은 질문을 네이버에서 검색하면 몇 번째인지</li>
+      <li><span class="num">⑤</span>다음 달까지 할 일 3가지</li>
     </ul>
   </section>
 
-  <!-- 4. 가격 A안 (표로 배치, 문구 그대로) -->
-  <section class="card">
-    <table>
-      <thead>
-        <tr><th scope="col">1회 진단</th><th scope="col">월 추적</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><span class="price"><span class="nw">5만 원</span></span></td><td><span class="price">매달 <span class="nw">9만 9천 원</span></span></td></tr>
-        <tr><td class="detail">질문 10개 × AI 3곳(30회), 리포트 링크 1장</td><td class="detail">매달 다시 물어보고, 지난달과 비교</td></tr>
-      </tbody>
-    </table>
-    <p class="pay">결제는 계좌 이체 + 세금계산서</p>
+  <!-- 3-1. 할 일 3가지 예시 (2026-11-10 총괄 문구. 근거 사이트 종류는 logs/2026-11-10_외국인_서울_영어/ 15개 답의 출처 집계 기준, 정리 _workspace/08_외국인_영어_시험_결과_2026-11-10.md) -->
+  <section class="card proposal">
+    <h2>"다음 달까지 할 일 3가지"는 이런 식입니다 (예시)</h2>
+    <p>AI가 답할 때 근거로 삼은 사이트를 보고, 우리 가게 정보가 빠진 곳을 채우는 일을 제안합니다. 2026년 11월 10일 영어 질문 5개에서 AI 3곳이 근거로 삼은 곳은 서울관광재단·한국관광공사의 영어 관광 안내, 외국인 커뮤니티(레딧), 가게의 영어 홈페이지, 트립어드바이저 같은 리뷰·예약 사이트였습니다. AI 3곳 모두 네이버를 근거로 삼지 않았습니다. 우리 가게가 그중 어디에도 없다면 할 일은 이렇게 나옵니다.</p>
+    <ol>
+      <li>서울관광재단·한국관광공사 영어 안내에 우리 가게가 있는지 확인하고, 없으면 올리는 길 알아보기 (AI가 이 두 사이트를 가장 많이 근거로 읽었음)</li>
+      <li>영어 소개 페이지 한 장 만들기: 가게 이름 영문 표기·메뉴·주소·영업시간 (AI가 다른 가게의 영어 홈페이지를 근거로 읽었음)</li>
+      <li>트립어드바이저 같은 리뷰·예약 사이트에 가게 등록하고 영어 리뷰 받기 (AI가 리뷰·예약 사이트를 근거로 읽었음)</li>
+    </ol>
+    <p class="detail">제안은 근거 사이트에 우리 정보가 있나 없나로만 정합니다. 효과는 다음 달 같은 질문으로 다시 물어 확인합니다.</p>
   </section>
 
   <!-- 5. 사전 신청 A안: 노션 폼 주소가 정해지면 href만 바꾼다 -->
@@ -113,7 +205,7 @@
 
 <!-- 6. 맨 아래 한 줄 A안 -->
 <footer>
-  <!-- 2026-11-10 대표님 결정(⑥-3 수정: 회사 이름·주소·이메일. 대표 이름은 17:00 결정으로 뺌). 주소는 사업자등록증(2025-05-22 재발급본), 이메일은 회사 홈페이지 공개 주소. -->
+  <!-- 2026-11-10 대표님 결정(⑥-3 수정: 회사 이름·주소·이메일. 대표 이름은 15:40 결정으로 뺌). 주소는 사업자등록증(2025-05-22 재발급본), 이메일은 회사 홈페이지 공개 주소. -->
   <p>주식회사 엠엔엠솔루션 · 서울특별시 영등포구 국회대로36길 6-1, 2층 B283호 · yhkim@mnmsolution.com</p>
   <p>진단 결과는 실제 AI 답변만 기록합니다.</p>
 </footer>
