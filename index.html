@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI에게 가게 추천을 부탁하면, 우리 가게가 나올까요?</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: #ffffff;
+    color: #333333;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px 32px; }
+  .card {
+    border: 1px solid #e2e6ea;
+    border-radius: 12px;
+    padding: 20px 18px;
+    margin: 0 0 16px;
+  }
+  .hero { border-top: 4px solid #1f6feb; }
+  h1 { font-size: 24px; line-height: 1.4; margin: 0 0 10px; color: #222222; }
+  .sub { margin: 0; color: #444444; }
+  h2 { font-size: 19px; margin: 0 0 10px; color: #222222; }
+  .note { margin: 0; color: #555555; }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li { padding: 6px 0; border-top: 1px solid #f0f2f4; }
+  .list li:first-child { border-top: 0; }
+  .num { color: #1f6feb; font-weight: 700; margin-right: 4px; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0 0 12px; }
+  th, td { border: 1px solid #e2e6ea; padding: 10px; vertical-align: top; text-align: left; }
+  th { background: #f3f7fe; color: #1f6feb; font-size: 16px; }
+  .price { font-size: 19px; font-weight: 700; color: #222222; }
+  .nw { white-space: nowrap; }
+  .detail { font-size: 15px; color: #555555; }
+  .pay { margin: 0; font-size: 15px; color: #555555; }
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #1f6feb;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin: 0 0 12px;
+  }
+  .btn:focus, .btn:hover { background: #1a5fd0; }
+  .apply p { margin: 0 0 6px; }
+  footer { max-width: 640px; margin: 0 auto; padding: 0 16px 32px; font-size: 14px; color: #666666; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- 1. 제목 C안 + 부제 A안 -->
+  <section class="card hero">
+    <h1>AI에게 가게 추천을 부탁하면, 우리 가게가 나올까요?</h1>
+    <p class="sub">ChatGPT·제미나이·Claude에 실제로 물어보고, 결과를 리포트로 보여 드립니다.</p>
+  </section>
+
+  <!-- 2. 실제 예시: 2026-11-09 실제 호출 결과. 출처 logs/2026-11-09/co01_openai.md (머리말 2-5줄, 질문 13줄, 답 16줄 첫 문단 그대로) -->
+  <section class="card example">
+    <p class="note">저희 회사(엠엔엠솔루션)가 나오는지 보려고 공식 창구에 먼저 한 번 물어본 결과입니다. 질문에 회사 이름은 넣지 않았습니다. 물을 때마다 답이 달라질 수 있습니다.</p>
+    <p>물어본 곳·날짜: ChatGPT(OpenAI 공식 창구, 모델 gpt-6-sol), 2026-11-09 20:32, 웹 검색 켬</p>
+    <p>질문: 서울 영등포 IT 인프라 구축 업체 추천</p>
+    <p>답(일부): 서울 <strong>영등포구에 소재한 IT 인프라 구축 업체</strong>를 찾으신다면, 구축 범위에 따라 아래 업체부터 비교해 보세요. 업체별 서비스 범위와 연락처는 각사 홈페이지에 게시된 내용을 기준으로 확인했습니다.</p>
+    <p class="note">이어서 업체 4곳을 표로 추천했습니다. 엠엔엠솔루션은 없었습니다. 같은 질문을 제미나이·Claude에도 물었는데 셋 다 저희 회사를 말하지 않았습니다.</p>
+    <p class="note">답 원문 전체는 진단 리포트에 그대로 담깁니다.</p>
+  </section>
+
+  <!-- 3. 리포트에서 보시는 것 A안 -->
+  <section class="card">
+    <h2>리포트에서 보시는 것</h2>
+    <ul class="list">
+      <li><span class="num">①</span>질문별·AI별로 우리 가게가 나왔는지</li>
+      <li><span class="num">②</span>대신 추천된 곳</li>
+      <li><span class="num">③</span>AI가 근거로 삼은 사이트</li>
+      <li><span class="num">④</span>다음 달까지 할 일 3가지</li>
+    </ul>
+  </section>
+
+  <!-- 4. 가격 A안 (표로 배치, 문구 그대로) -->
+  <section class="card">
+    <table>
+      <thead>
+        <tr><th scope="col">1회 진단</th><th scope="col">월 추적</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="price"><span class="nw">5만 원</span></span></td><td><span class="price">매달 <span class="nw">9만 9천 원</span></span></td></tr>
+        <tr><td class="detail">질문 10개 × AI 3곳(30회), 리포트 링크 1장</td><td class="detail">매달 다시 물어보고, 지난달과 비교</td></tr>
+      </tbody>
+    </table>
+    <p class="pay">결제는 계좌 이체 + 세금계산서</p>
+  </section>
+
+  <!-- 5. 사전 신청 A안: 노션 폼 주소가 정해지면 href만 바꾼다 -->
+  <section class="card apply">
+    <a class="btn" href="https://luck-orangutan-7d4.notion.site/59af0736ecd9409296b9dc8b83ee4023">사전 신청하기</a>
+    <p>가게 이름·지역·업종·이메일, 네 가지만 적어 주세요.</p>
+    <p>신청하시면 저희가 연락드려 진단 일정과 질문 10개를 함께 정합니다.</p>
+  </section>
+
+</main>
+
+<!-- 6. 맨 아래 한 줄 A안 -->
+<footer>
+  <!-- 2026-11-10 대표님 결정(⑥-3 수정: 회사 이름·주소·이메일. 대표 이름은 17:00 결정으로 뺌). 주소는 사업자등록증(2025-05-22 재발급본), 이메일은 회사 홈페이지 공개 주소. -->
+  <p>주식회사 엠엔엠솔루션 · 서울특별시 영등포구 국회대로36길 6-1, 2층 B283호 · yhkim@mnmsolution.com</p>
+  <p>진단 결과는 실제 AI 답변만 기록합니다.</p>
+</footer>
+</body>
+</html>
